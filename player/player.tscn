@@ -1,0 +1,792 @@
+[gd_scene load_steps=49 format=3 uid="uid://kyjyh0j5vvx5"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_m55yk"]
+[ext_resource type="Texture2D" uid="uid://w76oxqlqot0o" path="res://player/sprites/mario spritesheet.png" id="2_qu1t5"]
+[ext_resource type="AudioStream" uid="uid://cgtiauaju5r7d" path="res://player/maro-jump-sound-effect_1.mp3" id="3_btwxa"]
+[ext_resource type="Texture2D" uid="uid://by0flso4sh7fy" path="res://player/sprites/baby mario.png" id="4_3ivkk"]
+[ext_resource type="FontFile" uid="uid://cq31f0emjlkty" path="res://misc/minecraft_font.ttf" id="4_6wn6a"]
+[ext_resource type="Texture2D" uid="uid://d31hop2tbryqj" path="res://player/sprites/luigi.png" id="5_lobsb"]
+[ext_resource type="AudioStream" uid="uid://ba3kir2uiea5m" path="res://player/smw_pipe.wav" id="7_87x3r"]
+[ext_resource type="Texture2D" uid="uid://cjsi4isab3715" path="res://player/sprites/luigi baby.png" id="7_e8nwy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fblkp"]
+size = Vector2(14, 25)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fcbiy"]
+properties/0/path = NodePath("luigi/baby:frame")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("luigi/baby:flip_h")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("luigi/baby:visible")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("luigi/big:frame")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("luigi/big:visible")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("luigi/big:flip_h")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_weray"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("mario:visible")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("mario/big:frame")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("mario/big:visible")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("mario/big:flip_h")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("mario/baby:flip_h")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("mario/baby:frame")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+properties/7/path = NodePath("mario/baby:visible")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+properties/8/path = NodePath("CollisionShape2D:scale")
+properties/8/spawn = true
+properties/8/replication_mode = 1
+
+[sub_resource type="Animation" id="Animation_dg6jg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mario/big:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_25psh"]
+resource_name = "crouch"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mario/big:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [12]
+}
+
+[sub_resource type="Animation" id="Animation_jr4i3"]
+resource_name = "fall"
+length = 0.35
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mario/big:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+
+[sub_resource type="Animation" id="Animation_pa7e2"]
+resource_name = "idle"
+length = 0.35
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mario/big:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_nowey"]
+resource_name = "jump"
+length = 0.35
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mario/big:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
+[sub_resource type="Animation" id="Animation_ex3ys"]
+resource_name = "run"
+length = 0.35
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mario/big:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.233333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [1, 0, 2]
+}
+
+[sub_resource type="Animation" id="Animation_d57qi"]
+resource_name = "walk"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mario/big:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.466667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [1, 0, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_laams"]
+_data = {
+"RESET": SubResource("Animation_dg6jg"),
+"crouch": SubResource("Animation_25psh"),
+"fall": SubResource("Animation_jr4i3"),
+"idle": SubResource("Animation_pa7e2"),
+"jump": SubResource("Animation_nowey"),
+"run": SubResource("Animation_ex3ys"),
+"walk": SubResource("Animation_d57qi")
+}
+
+[sub_resource type="Animation" id="Animation_ok5hp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("baby:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_plvfj"]
+resource_name = "crouch"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("baby:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_ka5dn"]
+resource_name = "fall"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("baby:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="Animation" id="Animation_qvkj0"]
+resource_name = "idle"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("baby:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_pm0vq"]
+resource_name = "jump"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("baby:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="Animation" id="Animation_65g4j"]
+resource_name = "run"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("baby:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_qclqu"]
+resource_name = "walk"
+length = 0.56
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("baby:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0666667, 0.366667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s6kqe"]
+_data = {
+"RESET": SubResource("Animation_ok5hp"),
+"crouch": SubResource("Animation_plvfj"),
+"fall": SubResource("Animation_ka5dn"),
+"idle": SubResource("Animation_qvkj0"),
+"jump": SubResource("Animation_pm0vq"),
+"run": SubResource("Animation_65g4j"),
+"walk": SubResource("Animation_qclqu")
+}
+
+[sub_resource type="Animation" id="Animation_3nqbk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+
+[sub_resource type="Animation" id="Animation_rqwmk"]
+resource_name = "mario ani"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0666667, 0.433333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [9, 10]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k5406"]
+_data = {
+"RESET": SubResource("Animation_3nqbk"),
+"mario ani": SubResource("Animation_rqwmk")
+}
+
+[sub_resource type="Animation" id="Animation_mf3d5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("luigi sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_owiss"]
+resource_name = "luigi"
+length = 1.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("luigi sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0666667, 0.566667, 0.833333, 0.933333, 1.16667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7, 8]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dkxin"]
+_data = {
+"RESET": SubResource("Animation_mf3d5"),
+"luigi": SubResource("Animation_owiss")
+}
+
+[sub_resource type="Animation" id="Animation_1f7q7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("big:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="Animation" id="Animation_ppq7e"]
+resource_name = "crouch"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("big:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+
+[sub_resource type="Animation" id="Animation_espn7"]
+resource_name = "fall"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("big:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0666667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_55i24"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("big:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0666667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_72rpx"]
+resource_name = "jump"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("big:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0666667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
+}
+
+[sub_resource type="Animation" id="Animation_xydid"]
+resource_name = "run"
+length = 0.3
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("big:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 0.133333, 0.266667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [3, 0, 2]
+}
+
+[sub_resource type="Animation" id="Animation_1qdtv"]
+resource_name = "walk"
+length = 0.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("big:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 0.2, 0.433333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [3, 0, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_upuce"]
+_data = {
+"RESET": SubResource("Animation_1f7q7"),
+"crouch": SubResource("Animation_ppq7e"),
+"fall": SubResource("Animation_espn7"),
+"idle": SubResource("Animation_55i24"),
+"jump": SubResource("Animation_72rpx"),
+"run": SubResource("Animation_xydid"),
+"walk": SubResource("Animation_1qdtv")
+}
+
+[sub_resource type="Animation" id="Animation_fessd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("baby:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_0lqks"]
+resource_name = "crouch"
+length = 0.45
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("baby:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_56rb3"]
+resource_name = "fall"
+length = 0.45
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("baby:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="Animation" id="Animation_i30if"]
+resource_name = "jump"
+length = 0.45
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("baby:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="Animation" id="Animation_71fuf"]
+resource_name = "run"
+length = 0.45
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("baby:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_4m8cu"]
+resource_name = "walk"
+length = 0.65
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("baby:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l00yd"]
+_data = {
+"RESET": SubResource("Animation_fessd"),
+"crouch": SubResource("Animation_0lqks"),
+"fall": SubResource("Animation_56rb3"),
+"jump": SubResource("Animation_i30if"),
+"run": SubResource("Animation_71fuf"),
+"walk": SubResource("Animation_4m8cu")
+}
+
+[node name="Player" type="CharacterBody2D" groups=["players"]]
+collision_layer = 6
+collision_mask = 7
+script = ExtResource("1_m55yk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_fblkp")
+
+[node name="DisplayAuthority" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_left = -70.0
+offset_top = -70.0
+offset_right = 70.0
+offset_bottom = 70.0
+color = Color(0, 1, 0, 1)
+
+[node name="luigi syncer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_fcbiy")
+
+[node name="MultiplayerSynchronizer2" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_weray")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_btwxa")
+volume_db = -16.11
+
+[node name="mario" type="Node2D" parent="."]
+visible = false
+z_index = 1
+position = Vector2(0, -7)
+
+[node name="big" type="Sprite2D" parent="mario"]
+visible = false
+texture_filter = 1
+position = Vector2(0, 6)
+texture = ExtResource("2_qu1t5")
+hframes = 4
+vframes = 4
+frame = 1
+
+[node name="baby" type="Sprite2D" parent="mario"]
+visible = false
+texture_filter = 1
+position = Vector2(0, 6)
+texture = ExtResource("4_3ivkk")
+flip_h = true
+hframes = 2
+vframes = 2
+frame = 1
+
+[node name="mario ani" type="AnimationPlayer" parent="mario"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_laams")
+}
+
+[node name="babyani" type="AnimationPlayer" parent="mario"]
+libraries = {
+"": SubResource("AnimationLibrary_s6kqe")
+}
+
+[node name="Charmenu" type="Node2D" parent="."]
+position = Vector2(-313, -164)
+scale = Vector2(0.342701, 0.362527)
+
+[node name="PanelContainer" type="PanelContainer" parent="Charmenu"]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+offset_left = 2.0
+offset_top = -9.0
+offset_right = 42.0
+offset_bottom = 31.0
+scale = Vector2(48.9659, 27.4967)
+
+[node name="Label" type="Label" parent="Charmenu"]
+offset_left = 83.0
+offset_top = 26.0
+offset_right = 309.0
+offset_bottom = 49.0
+scale = Vector2(2.5733, 3.15594)
+theme_override_fonts/font = ExtResource("4_6wn6a")
+text = "Select your character:"
+
+[node name="mario" type="Button" parent="Charmenu"]
+offset_left = 601.106
+offset_top = 267.566
+offset_right = 609.106
+offset_bottom = 275.566
+scale = Vector2(20, 20)
+
+[node name="marioSprite" type="Sprite2D" parent="Charmenu/mario"]
+texture_filter = 1
+position = Vector2(4.1, 4.25)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_qu1t5")
+hframes = 4
+vframes = 4
+frame = 9
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Charmenu/mario/marioSprite"]
+deterministic = true
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_k5406")
+}
+
+[node name="luigi" type="Button" parent="Charmenu"]
+offset_left = 1015.46
+offset_top = 273.083
+offset_right = 1023.46
+offset_bottom = 281.083
+scale = Vector2(20, 20)
+
+[node name="luigi sprite" type="Sprite2D" parent="Charmenu/luigi"]
+texture_filter = 1
+position = Vector2(4.1, 4.25)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_lobsb")
+hframes = 4
+vframes = 3
+frame = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Charmenu/luigi"]
+libraries = {
+"": SubResource("AnimationLibrary_dkxin")
+}
+speed_scale = 0.711
+
+[node name="luigi" type="Node2D" parent="."]
+
+[node name="big" type="Sprite2D" parent="luigi"]
+visible = false
+texture_filter = 1
+texture = ExtResource("5_lobsb")
+hframes = 4
+vframes = 3
+frame = 3
+
+[node name="baby" type="Sprite2D" parent="luigi"]
+visible = false
+texture = ExtResource("7_e8nwy")
+hframes = 2
+vframes = 2
+frame = 1
+
+[node name="big ani" type="AnimationPlayer" parent="luigi"]
+libraries = {
+"": SubResource("AnimationLibrary_upuce")
+}
+
+[node name="baby ani" type="AnimationPlayer" parent="luigi"]
+libraries = {
+"": SubResource("AnimationLibrary_l00yd")
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="power down" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_87x3r")
+
+[connection signal="pressed" from="Charmenu/mario" to="." method="Chosemario"]
+[connection signal="pressed" from="Charmenu/luigi" to="." method="choseluigi"]

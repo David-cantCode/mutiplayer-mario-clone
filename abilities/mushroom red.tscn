@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://bcdy85mj1qdxw"]
+
+[ext_resource type="Script" path="res://abilities/mushroom_red.gd" id="1_qqfd6"]
+[ext_resource type="Texture2D" uid="uid://bfuyu08gn44cl" path="res://abilities/mushroom red.png" id="2_imyxg"]
+[ext_resource type="AudioStream" uid="uid://b0opiiy6jitbu" path="res://abilities/smw_power-up.wav" id="3_hyx0d"]
+[ext_resource type="AudioStream" uid="uid://b1etj4eksm8xu" path="res://main/question block/smw_coin.wav" id="4_2ctpn"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_umkwk"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ay7yh"]
+radius = 7.0
+height = 16.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_igbra"]
+size = Vector2(20, 18)
+
+[node name="Node2D" type="CharacterBody2D"]
+script = ExtResource("1_qqfd6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_imyxg")
+
+[node name="wall left" type="RayCast2D" parent="."]
+position = Vector2(-1, -2)
+target_position = Vector2(-15, 0)
+collide_with_areas = true
+
+[node name="wall right" type="RayCast2D" parent="."]
+position = Vector2(1, -2)
+target_position = Vector2(16, 0)
+
+[node name="dead timer" type="Timer" parent="."]
+wait_time = 0.9
+one_shot = true
+
+[node name="power up" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_hyx0d")
+max_distance = 50000.0
+
+[node name="points add" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_2ctpn")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_umkwk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["enemy"]]
+shape = SubResource("CapsuleShape2D_ay7yh")
+
+[node name="Area2D2" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2" groups=["enemy"]]
+position = Vector2(0, -1)
+scale = Vector2(1.06851, 1)
+shape = SubResource("RectangleShape2D_igbra")
+
+[connection signal="timeout" from="dead timer" to="." method="delte"]
+[connection signal="timeout" from="dead timer" to="." method="_on_dead_timer_timeout"]
+[connection signal="timeout" from="dead timer" to="." method="delete"]
+[connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]
