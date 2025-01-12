@@ -26,6 +26,10 @@ var dead =  false
 var player_id: int = -1 
 var can_get_hit = true
 
+var lives
+var player #P1, P2 P3
+
+
 @onready var Marioani = $"mario/mario ani"
 @onready var Mariosprite = $"mario/big"
 @onready var Charmenu = $Charmenu
@@ -216,7 +220,7 @@ func on_hit(dmg):
 	hp -= dmg
 	print(hp)
 	if hp == 1:
-		$"power down"
+		$"power down".play()
 	if hp < 0:
 		dead = true
 		

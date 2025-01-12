@@ -6,12 +6,14 @@ const SPEED = 70
 var alive =  true
 var dir = Vector2()
 var timer = false
+var can_move = true
 
 func _ready() -> void:
 	dir.x = 1
 
 func _physics_process(delta: float) -> void:
 	if alive == true:
+		if !can_move: return
 		if $"wall left".is_colliding() or $"wall right".is_colliding():
 			dir.x *= -1 #flip direction
 			

@@ -16,7 +16,8 @@ config/features=PackedStringArray("4.3", "Forward Plus")
 
 [autoload]
 
-Global="*res://globalplayer.gd"
+Global="*res://Global Scripts/Global.gd"
+Manager="*res://Global Scripts/manager.gd"
 
 [display]
 

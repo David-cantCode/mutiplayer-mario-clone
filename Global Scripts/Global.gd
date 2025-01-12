@@ -3,6 +3,9 @@ extends Node
 var oneups = 0
 var coins = 99
 
+var players: Array = []
+
+
 func get_coin(add):
 	coins += add
 	

@@ -58,7 +58,7 @@ position = Vector2(0, -1)
 scale = Vector2(1.06851, 1)
 shape = SubResource("RectangleShape2D_igbra")
 
+[connection signal="timeout" from="dead timer" to="." method="delete"]
 [connection signal="timeout" from="dead timer" to="." method="delte"]
 [connection signal="timeout" from="dead timer" to="." method="_on_dead_timer_timeout"]
-[connection signal="timeout" from="dead timer" to="." method="delete"]
 [connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]

@@ -58,19 +58,6 @@ func chase():
 		dir.x = 1
 	
 
-
-func on_hit(body: Node2D) -> void:
-	#IF HIT HAPPENED TO  HEAD
-
-	if !alive: return 
-	alive = false
-	$AnimationPlayer.play("dead")
-	$"dead timer".start()
-	$"100".visible = true
-	$AudioStreamPlayer2D.play()
-	#makes player bounce after 
-	if body.is_in_group("players"):
-		body.bounce()
 		
 func delete() -> void:
 	$".".queue_free()
@@ -83,3 +70,17 @@ func _on_timer_timeout() -> void:
 func _on_area_2d_2_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
 		body.on_hit(1)
+
+
+func _on_head_body_entered(body: Node2D) -> void:
+	#IF HIT HAPPENED TO  HEAD
+
+	if !alive: return 
+	alive = false
+	$AnimationPlayer.play("dead")
+	$"dead timer".start()
+	$"100".visible = true
+	$AudioStreamPlayer2D.play()
+	#makes player bounce after 
+	if body.is_in_group("players"):
+		body.bounce()

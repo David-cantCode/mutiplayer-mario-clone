@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://blkp40y57dwf2"]
+[gd_scene load_steps=11 format=3 uid="uid://blkp40y57dwf2"]
 
 [ext_resource type="Script" path="res://Global Scripts/main.gd" id="1_b31ok"]
 [ext_resource type="PackedScene" uid="uid://kyjyh0j5vvx5" path="res://player/player.tscn" id="2_ommmd"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://2qvshx61gf1j" path="res://main/question block/question block.tscn" id="4_q2px1"]
 [ext_resource type="PackedScene" uid="uid://c3yw75ot8ikeq" path="res://enemies/goomba/goomba.tscn" id="5_bf6cr"]
 [ext_resource type="PackedScene" uid="uid://bcdy85mj1qdxw" path="res://abilities/mushroom red.tscn" id="6_wm8ii"]
+[ext_resource type="PackedScene" uid="uid://bace05qof6xm7" path="res://main/question block/question mushroom.tscn" id="7_j88rc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_28auc"]
 size = Vector2(200, 150)
@@ -169,6 +170,9 @@ position = Vector2(338, 225)
 
 [node name="Node2D" parent="." instance=ExtResource("6_wm8ii")]
 position = Vector2(172, 211)
+
+[node name="QuestionBlock5" parent="." instance=ExtResource("7_j88rc")]
+position = Vector2(206, 175)
 
 [connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="text_submitted" from="Menu/MarginContainer/VBoxContainer/HBoxContainer/To" to="." method="_on_to_text_submitted"]

@@ -60,6 +60,7 @@ func add_player(id: int) -> void:
 	player_instance.name = str(id)  # Use the ID as the node name
 	player_instance.set_player_id(id)  # Assign the ID to the player script
 	%SpawnArea.add_child(player_instance)
+	Global.players.append(player_instance)
 
 
 
@@ -67,4 +68,9 @@ func add_player(id: int) -> void:
 func remove_player(id: int) -> void:
 	var player_node = %SpawnArea.get_node_or_null(str(id))
 	if player_node:
+		Global.players.erase(player_node)
 		player_node.queue_free()
+	
+
+
+		
